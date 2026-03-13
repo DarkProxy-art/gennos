@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from './dashboard.module.css';
@@ -280,16 +282,10 @@ export default function Dashboard() {
               ))}
             </div>
 
-            {validationReport.corrupted_details.length > 0 && (
+            {validationReport.corrupted_files > 0 && (
               <div className={styles.corruptedFiles}>
                 <h3>Corrupted Files</h3>
-                <ul>
-                  {validationReport.corrupted_details.map((detail, index) => (
-                    <li key={index}>
-                      {detail.did} - {detail.endpoint}: {detail.file_path}
-                    </li>
-                  ))}
-                </ul>
+                <p>Total corrupted: {validationReport.corrupted_files}</p>
               </div>
             )}
           </div>

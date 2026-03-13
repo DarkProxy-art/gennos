@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import * as BABYLON from 'babylonjs'
-import styles from '../page.module.css'
+import styles from './kernel.module.css'
 
 interface SystemLayer {
   name: string
