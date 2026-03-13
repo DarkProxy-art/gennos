@@ -2,10 +2,18 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import styles from './GlobalNav.module.css'
 
 export default function GlobalNav() {
   const pathname = usePathname()
+  const [userRole, setUserRole] = useState<'user' | 'admin'>('user')
+
+  useEffect(() => {
+    // Verificar rol de usuario
+    const role = localStorage.getItem('neoproxy_role') as 'user' | 'admin' || 'user'
+    setUserRole(role)
+  }, [])
 
   const navItems = [
     { href: '/', label: 'HOME', icon: '⚡' },
@@ -18,6 +26,11 @@ export default function GlobalNav() {
     { href: '/npos/research', label: 'RESEARCH', icon: '🏛️' },
     { href: '/npos/admin', label: 'ADMIN', icon: '🛡️' },
   ]
+
+  // Solo mostrar KERNEL si es admin
+  if (userRole === 'admin') {
+    navItems.push({ href: '/kernel', label: 'KERNEL', icon: '🧊' })
+  }
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'

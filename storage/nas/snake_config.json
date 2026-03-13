@@ -1,0 +1,17 @@
+# NeoProxy Agent Configuration
+{
+  "agent": "snake",
+  "version": "2.1.4",
+  "capabilities": [
+    "python_libraries",
+    "automation",
+    "data_pipelines",
+    "ai_integration"
+  ],
+  "dependencies": [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "tensorflow"
+  ]
+}

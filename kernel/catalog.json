@@ -1,0 +1,129 @@
+[
+  {
+    "did": "np:3d_model:99cc02c1",
+    "file_name": "test_model.stl",
+    "path": "watch/test_model.stl",
+    "checksum": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e",
+    "size": 325,
+    "type": "3d_model",
+    "category": "fabrication",
+    "created": 1773431061.8320596,
+    "modified": 1773431061.8320596,
+    "extension": ".stl",
+    "locations": [
+      {
+        "endpoint": "local_storage",
+        "path": "watch/test_model.stl",
+        "status": "valid",
+        "last_check": 1773431067.776154,
+        "last_validation": 1773431175.05057,
+        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e"
+      },
+      {
+        "endpoint": "nas_storage",
+        "path": "./storage/nas/test_model.stl",
+        "status": "valid",
+        "last_check": 1773431172.4438481,
+        "last_validation": 1773431175.0506356,
+        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e"
+      },
+      {
+        "endpoint": "cloud_archive",
+        "path": "./storage/cloud/test_model.stl",
+        "status": "available",
+        "last_check": 1773431172.4438925
+      }
+    ],
+    "replicas": 3,
+    "tags": [],
+    "attributes": {
+      "size": 325,
+      "created": 1773431061.8320596,
+      "modified": 1773431061.8320596,
+      "extension": ".stl",
+      "type": "3d_model",
+      "category": "fabrication",
+      "print_ready": true
+    }
+  },
+  {
+    "did": "np:code:5f56bc89",
+    "file_name": "data_pipeline.py",
+    "path": "watch/data_pipeline.py",
+    "checksum": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347",
+    "size": 917,
+    "type": "code",
+    "category": "agent",
+    "created": 1773431065.5600784,
+    "modified": 1773431065.5600784,
+    "extension": ".py",
+    "locations": [
+      {
+        "endpoint": "local_storage",
+        "path": "watch/data_pipeline.py",
+        "status": "valid",
+        "last_check": 1773431067.776636,
+        "last_validation": 1773431175.0507302,
+        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347"
+      },
+      {
+        "endpoint": "nas_storage",
+        "path": "./storage/nas/data_pipeline.py",
+        "status": "valid",
+        "last_check": 1773431172.4442303,
+        "last_validation": 1773431175.050781,
+        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347"
+      }
+    ],
+    "replicas": 2,
+    "tags": [],
+    "attributes": {
+      "size": 917,
+      "created": 1773431065.5600784,
+      "modified": 1773431065.5600784,
+      "extension": ".py",
+      "type": "code",
+      "category": "agent"
+    }
+  },
+  {
+    "did": "np:configuration:e234cb2c",
+    "file_name": "snake_config.json",
+    "path": "watch/snake_config.json",
+    "checksum": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206",
+    "size": 274,
+    "type": "configuration",
+    "category": "system",
+    "created": 1773431058.6350436,
+    "modified": 1773431058.6350436,
+    "extension": ".json",
+    "locations": [
+      {
+        "endpoint": "local_storage",
+        "path": "watch/snake_config.json",
+        "status": "valid",
+        "last_check": 1773431067.7773008,
+        "last_validation": 1773431175.0508337,
+        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206"
+      },
+      {
+        "endpoint": "nas_storage",
+        "path": "./storage/nas/snake_config.json",
+        "status": "valid",
+        "last_check": 1773431172.4445186,
+        "last_validation": 1773431175.0508828,
+        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206"
+      }
+    ],
+    "replicas": 2,
+    "tags": [],
+    "attributes": {
+      "size": 274,
+      "created": 1773431058.6350436,
+      "modified": 1773431058.6350436,
+      "extension": ".json",
+      "type": "configuration",
+      "category": "system"
+    }
+  }
+]
