@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import * as BABYLON from 'babylonjs'
+import IntroToggle from './components/IntroToggle'
 import styles from './page.module.css'
 
 type V4 = [number, number, number, number]
@@ -356,7 +357,9 @@ export default function NeoProxyClient() {
   const dataStream = '0x7F 0xE2 CORE_SYNC ENTANGLED_TESSERACT NODE_01 NODE_02 NODE_03 PROXY_ACTIVE MEMORY_BUFFER 0x00 0xFF GEOMETRY_4D FABRICATION_QUEUE SYSTEMS_OK '.repeat(4)
 
   return (
-    <main className={`${styles.root} ${glitchActive ? styles.glitch : ''}`}>
+    <>
+      <IntroToggle />
+      <main className={`${styles.container} ${glitchActive ? styles.glitch : ''}`}>
       <canvas ref={canvasRef} className={styles.canvas} />
       <div className={styles.vignette} />
       <div className={styles.noiseOverlay} />
@@ -416,5 +419,6 @@ export default function NeoProxyClient() {
         </div>
       </section>
     </main>
+    </>
   )
 }

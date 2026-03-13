@@ -1,0 +1,30 @@
+{
+  "timestamp": 1773432475.890525,
+  "total_files": 7,
+  "valid_files": 6,
+  "corrupted_files": 0,
+  "missing_files": 1,
+  "no_checksum_files": 0,
+  "quarantined_files": 0,
+  "endpoint_summary": {
+    "local_storage": {
+      "total": 3,
+      "valid": 3,
+      "corrupted": 0,
+      "missing": 0
+    },
+    "nas_storage": {
+      "total": 3,
+      "valid": 3,
+      "corrupted": 0,
+      "missing": 0
+    },
+    "cloud_archive": {
+      "total": 1,
+      "valid": 0,
+      "corrupted": 0,
+      "missing": 1
+    }
+  },
+  "corrupted_details": []
+}
