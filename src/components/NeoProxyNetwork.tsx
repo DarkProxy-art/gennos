@@ -638,5 +638,4 @@ export default function HomePage() {
     </div>
   );
 }
-*/</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/src/components/NeoProxyNetwork.tsx
+*/
