@@ -38,9 +38,11 @@ function NetworkNode({ name, position, onClick, isHovered, onHover }: NetworkNod
 
     // Magnetic repulsion from mouse
     if (isHovered) {
-      meshRef.current.material.emissiveIntensity = 0.8
+      const material = meshRef.current.material as THREE.MeshStandardMaterial
+      material.emissiveIntensity = 0.8
     } else {
-      meshRef.current.material.emissiveIntensity = 0.3
+      const material = meshRef.current.material as THREE.MeshStandardMaterial
+      material.emissiveIntensity = 0.3
     }
 
     // Gentle floating
@@ -49,15 +51,17 @@ function NetworkNode({ name, position, onClick, isHovered, onHover }: NetworkNod
 
   const handleClick = () => {
     onClick(name)
-    gsap.to(meshRef.current!.scale, {
-      x: position.scale * 1.5,
-      y: position.scale * 1.5,
-      z: position.scale * 1.5,
-      duration: 0.3,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.inOut"
-    })
+    if (meshRef.current) {
+      gsap.to(meshRef.current.scale, {
+        x: position.scale * 1.5,
+        y: position.scale * 1.5,
+        z: position.scale * 1.5,
+        duration: 0.3,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut"
+      })
+    }
   }
 
   return (
@@ -94,27 +98,18 @@ function ConnectionLine({ from, to }: { from: typeof NODE_POSITIONS[keyof typeof
     }
   })
 
-  const points = [
-    new THREE.Vector3(from.x, from.y, from.z),
-    new THREE.Vector3(to.x, to.y, to.z)
-  ]
+  const points = []
+  points.push(new THREE.Vector3(from.x, from.y, from.z))
+  points.push(new THREE.Vector3(to.x, to.y, to.z))
+
+  const geometry = new THREE.BufferGeometry().setFromPoints(points)
 
   return (
-    <line ref={lineRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={points.length}
-          array={new Float32Array(points.flatMap(p => [p.x, p.y, p.z]))}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <lineBasicMaterial
-        color="#00ff9c"
-        transparent
-        opacity={0.3}
-      />
-    </line>
+    <primitive object={new THREE.Line(geometry, new THREE.LineBasicMaterial({ 
+      color: "#00ff9c",
+      transparent: true,
+      opacity: 0.3
+    }))} ref={lineRef} />
   )
 }
 
@@ -160,7 +155,7 @@ function SerpentNetwork() {
     setIsTransforming(true)
 
     // Animate nodes into serpent formation
-    const serpentPath = []
+    const serpentPath: Array<{x: number, y: number, z: number}> = []
     for (let i = 0; i < 5; i++) {
       serpentPath.push({
         x: Math.sin(i * 0.5) * 3,
@@ -227,12 +222,14 @@ function Scene({ onNodeClick, hoveredNode, onHover }: {
   hoveredNode: string | null
   onHover: (name: string | null) => void
 }) {
+  const groupRef = useRef<THREE.Group>(null)
+
   return (
     <>
       <ambientLight intensity={0.3} />
       <pointLight position={[10, 10, 10]} intensity={0.5} />
       
-      <group ref={useRef<THREE.Group>()}>
+      <group ref={groupRef}>
         {Object.entries(NODE_POSITIONS).map(([name, position]) => (
           <NetworkNode
             key={name}
@@ -301,7 +298,16 @@ export default function ConstellationNavigation() {
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName)
     // Navigate to the corresponding page
-    window.location.href = `/${nodeName.toLowerCase()}`
+    const routes: Record<string, string> = {
+      'KERNEL': '/kernel',
+      'AGENTS': '/agents',
+      'MODELS': '/npos/fabrication',
+      'LAB': '/npos/lab',
+      'PORTAL': '/portal'
+    }
+    
+    const route = routes[nodeName] || '/'
+    window.location.href = route
   }
 
   return (

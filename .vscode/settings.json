@@ -1,0 +1,99 @@
+{
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "editor.fontSize": 14,
+  "editor.fontFamily": "JetBrains Mono, Consolas, monospace",
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "material-icon-theme",
+  
+  // NeoProxy AI Model Configuration - Optimizado para 8GB RAM
+  "continue.model": "llama3.1:8b",
+  "continue.contextLength": 8192,
+  "continue.temperature": 0.1,
+  "continue.maxTokens": 2048,
+  "continue.provider": "ollama",
+  "continue.ollamaBaseUrl": "http://localhost:11434",
+  "_comment": "Modelo 8B optimizado para sistema con 8GB RAM - Ryzen 5 2600 + RX 580",
+  
+  // Code Llama Configuration
+  "codellama.modelPath": "~/.codellama/models",
+  "codellama.contextLength": 4096,
+  "codellama.temperature": 0.2,
+  
+  // Tabnine Configuration
+  "tabnine.experimentalAutoImports": true,
+  "tabnine.experimentalCapabilities": {
+    "code_completion": true,
+    "code_explanation": true,
+    "code_generation": true
+  },
+  
+  // GitHub Copilot X
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": true,
+    "markdown": true
+  },
+  "github.copilot.advanced": {
+    "inlineSuggest.count": 5,
+    "listCount": 10
+  },
+  
+  // Performance Settings
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/out/**": true,
+    "**/dist/**": true
+  },
+  
+  // NeoProxy Specific
+  "neoproxy.aiProvider": "ollama",
+  "neoproxy.model": "llama3.1:70b",
+  "neoproxy.enableCodeAnalysis": true,
+  "neoproxy.enableAutoRefactor": true,
+  "neoproxy.contextWindowSize": 128000,
+  
+  // Terminal Settings for Termux Integration
+  "terminal.integrated.env.linux": {
+    "NEOPROXY_ENV": "windsurf",
+    "NEOPROXY_SYNC_URL": "http://localhost:3000/api/sync"
+  },
+  
+  // File Associations
+  "files.associations": {
+    "*.neoproxy": "json",
+    "*.kernel": "typescript",
+    "*.agent": "python"
+  },
+  
+  // Language Specific
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.suggest.insertMode": "replace"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  
+  // AI Assistant Settings
+  "aiAssistant.enabled": true,
+  "aiAssistant.model": "claude-3.5-sonnet",
+  "aiAssistant.apiKey": "${env:ANTHROPIC_API_KEY}",
+  "aiAssistant.maxTokens": 4096,
+  "aiAssistant.temperature": 0.1
+}

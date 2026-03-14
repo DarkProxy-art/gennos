@@ -17,7 +17,8 @@
         "status": "valid",
         "last_check": 1773431067.776154,
         "last_validation": 1773432475.8893514,
-        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e"
+        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e",
+        "last_access": 1773446875.986674
       },
       {
         "endpoint": "nas_storage",
@@ -25,13 +26,15 @@
         "status": "valid",
         "last_check": 1773431172.4438481,
         "last_validation": 1773432475.889404,
-        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e"
+        "checksum_validated": "72f0d4ea7b2b44d6a8ccbfc8f38ca87fdef4b698c0bcdd995616e8d89f81de1e",
+        "last_access": 1773446875.986674
       },
       {
         "endpoint": "cloud_archive",
         "path": "./storage/cloud/test_model.stl",
         "status": "available",
-        "last_check": 1773431172.4438925
+        "last_check": 1773431172.4438925,
+        "last_access": 1773446875.986674
       }
     ],
     "replicas": 3,
@@ -64,7 +67,8 @@
         "status": "valid",
         "last_check": 1773431067.776636,
         "last_validation": 1773432475.889476,
-        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347"
+        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347",
+        "last_access": 1773446875.986674
       },
       {
         "endpoint": "nas_storage",
@@ -72,7 +76,8 @@
         "status": "valid",
         "last_check": 1773431172.4442303,
         "last_validation": 1773432475.889521,
-        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347"
+        "checksum_validated": "038c313f12f80cc66f13cc97e9a469046d3d5fe3631c8d7738f015a0eb512347",
+        "last_access": 1773446875.986674
       }
     ],
     "replicas": 2,
@@ -104,7 +109,8 @@
         "status": "valid",
         "last_check": 1773431067.7773008,
         "last_validation": 1773432475.8895657,
-        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206"
+        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206",
+        "last_access": 1773446875.986674
       },
       {
         "endpoint": "nas_storage",
@@ -112,7 +118,8 @@
         "status": "valid",
         "last_check": 1773431172.4445186,
         "last_validation": 1773432475.8896084,
-        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206"
+        "checksum_validated": "4da9279b8d6912819770b89b5afca62f4a3717b237de90d5dfe2f34dacfbd206",
+        "last_access": 1773446875.986674
       }
     ],
     "replicas": 2,
