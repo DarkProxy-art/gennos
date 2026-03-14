@@ -4,7 +4,6 @@ import './globals.css'
 import './styles/theme.css'
 import './styles/responsive.css'
 import GlobalNav from './components/GlobalNav'
-import MobileDebug from './components/MobileDebug'
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
@@ -39,7 +38,6 @@ export default function RootLayout({
         <main className="main-content">
           {children}
         </main>
-        <MobileDebug />
       </body>
     </html>
   )
