@@ -543,5 +543,3 @@ Este mapa 3D es el **blueprint exacto** para construir NeoProxy. Cada coordenada
 
 *Document Version: 1.0*
 *Last Updated: March 13, 2026*
-*Status: Ready for Implementation*</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/NEOPROXY_3D_MAP_BLUEPRINT.md

@@ -453,5 +453,3 @@ Esta fusión crea algo que ningún sitio premiado ha logrado:
 
 *Unified Experience Spec v1.0*
 *Windsurf UX + Technical Implementation*
-*March 13, 2026*</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/NEO_PROXY_UNIFIED_EXPERIENCE.md

@@ -143,5 +143,3 @@ done
 # Cleanup on exit
 kill $KERNEL_PID 2>/dev/null
 kill $NEXTJS_PID 2>/dev/null
-print_status "NeoProxy system shutdown complete."</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/launch_neoproxy.sh

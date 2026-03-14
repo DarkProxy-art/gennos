@@ -127,5 +127,3 @@ echo "- Network nodes with magnetic interactions"
 echo "- Data pulse animations"
 echo "- Camera controller with cinematic transitions"
 echo ""
-print_status "Ready to explore The Living Network! 🗺️✨"</content>
-<parameter name="filePath">/home/darkproxy/neoproxy-repo/install_3d_network.sh
