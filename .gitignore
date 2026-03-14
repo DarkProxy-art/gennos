@@ -1,5 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# compiled output
+dist
+tmp
+out-tsc
+*.tsbuildinfo
+.expo
+.expo-shared
+
 # dependencies
 /node_modules
 /.pnp
@@ -9,6 +17,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+node_modules
 
 # testing
 /coverage
@@ -16,19 +25,37 @@
 # next.js
 /.next/
 /out/
-
-# production
 /build
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 # misc
 .DS_Store
 *.pem
-
-# debug
+/.sass-cache
+/connect.lock
+/libpeerconnection.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+testem.log
+/typings
+Thumbs.db
 
 # env files (can opt-in for committing if needed)
 .env*
@@ -38,6 +65,17 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-# assets
-# /public/models/  <-- Commented out to allow essential models
+
+# assets (commented to allow essential models)
+# /public/models/
 # /public/stls/
+
+# Replit
+.cache/
+.local/
+
+# Cursor rules
+.cursor/rules/nx-rules.mdc
+
+# GitHub instructions
+.github/instructions/nx.instructions.md
