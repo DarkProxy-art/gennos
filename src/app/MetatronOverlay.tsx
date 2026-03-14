@@ -50,8 +50,10 @@ export default function MetatronOverlay({ state, mode, onCommand, onAwaken, onSl
       }, 800)
       return () => clearTimeout(timer)
     } else if (state === 'awakening' && bootIndex >= BOOT_SEQUENCE.length) {
-      setTimeout(() => onCommand('BOOT_COMPLETE'), 500)
+      const timer = setTimeout(() => onCommand('BOOT_COMPLETE'), 500)
+      return () => clearTimeout(timer)
     }
+    return undefined
   }, [state, bootIndex, onCommand])
 
   // Cursor blink

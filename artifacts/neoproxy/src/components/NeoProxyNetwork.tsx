@@ -9,7 +9,7 @@ import { gsap } from 'gsap';
 // =========================================
 
 // Node Configuration
-const NODES_CONFIG = {
+const NODES_CONFIG: Record<string, NodeConfig> = {
   KERNEL: { position: [0, 0, 0], radius: 2.0, importance: 10, color: '#00ff9c', label: 'KERNEL' },
   AGENTS: { position: [-6, 3, 2], radius: 1.5, importance: 8, color: '#3aa8ff', label: 'AGENTS' },
   MODELS: { position: [6, 4, -1], radius: 1.5, importance: 8, color: '#ff6b35', label: 'MODELS' },
@@ -30,7 +30,7 @@ const CONNECTIONS_CONFIG = [
   { from: 'LAB', to: 'PORTAL', type: 'output_flow' }
 ];
 
-const CONNECTION_TYPES = {
+const CONNECTION_TYPES: Record<string, any> = {
   primary: { width: 0.05, color: '#00ff9c', pulseSpeed: 2.0, opacity: 0.8 },
   secondary: { width: 0.03, color: '#3aa8ff', pulseSpeed: 1.5, opacity: 0.6 },
   tertiary: { width: 0.02, color: '#666666', pulseSpeed: 1.0, opacity: 0.4 },
@@ -39,16 +39,33 @@ const CONNECTION_TYPES = {
   output_flow: { width: 0.04, color: '#ffffff', pulseSpeed: 1.8, opacity: 0.7, animated: true }
 };
 
+interface NodeConfig {
+  position: [number, number, number];
+  radius: number;
+  importance: number;
+  color: string;
+  label: string;
+}
+
+interface NetworkNodeProps {
+  config: NodeConfig;
+  onHover: (id: string, hovered: boolean) => void;
+  onClick: (id: string) => void;
+  isHovered: boolean;
+  isActive: boolean;
+}
+
+
 // =========================================
 // COMPONENTS
 // =========================================
 
 // Network Node Component
-function NetworkNode({ config, onHover, onClick, isHovered, isActive }) {
-  const meshRef = useRef();
-  const glowRef = useRef();
-  const [scale, setScale] = useState(1.0);
-  const [glowIntensity, setGlowIntensity] = useState(0.3);
+function NetworkNode({ config, onHover, onClick, isHovered, isActive }: NetworkNodeProps) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
+  const [scale] = useState(1.0);
+  const [glowIntensity] = useState(0.3);
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -58,25 +75,25 @@ function NetworkNode({ config, onHover, onClick, isHovered, isActive }) {
     }
 
     if (glowRef.current && glowRef.current.material) {
-      glowRef.current.material.uniforms.glowIntensity.value = glowIntensity;
+      (glowRef.current.material as THREE.ShaderMaterial).uniforms.glowIntensity.value = glowIntensity;
     }
   });
 
   useEffect(() => {
     if (isHovered) {
-      gsap.to(meshRef.current.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.3 });
-      gsap.to(glowRef.current.material.uniforms, { glowIntensity: 0.8, duration: 0.3 });
+      if (meshRef.current) gsap.to(meshRef.current.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.3 });
+      if (glowRef.current) gsap.to((glowRef.current.material as THREE.ShaderMaterial).uniforms, { glowIntensity: 0.8, duration: 0.3 });
     } else if (isActive) {
-      gsap.to(meshRef.current.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.3 });
-      gsap.to(glowRef.current.material.uniforms, { glowIntensity: 1.0, duration: 0.3 });
+      if (meshRef.current) gsap.to(meshRef.current.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.3 });
+      if (glowRef.current) gsap.to((glowRef.current.material as THREE.ShaderMaterial).uniforms, { glowIntensity: 1.0, duration: 0.3 });
     } else {
-      gsap.to(meshRef.current.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.3 });
-      gsap.to(glowRef.current.material.uniforms, { glowIntensity: 0.3, duration: 0.3 });
+      if (meshRef.current) gsap.to(meshRef.current.scale, { x: 1.0, y: 1.0, z: 1.0, duration: 0.3 });
+      if (glowRef.current) gsap.to((glowRef.current.material as THREE.ShaderMaterial).uniforms, { glowIntensity: 0.3, duration: 0.3 });
     }
   }, [isHovered, isActive]);
 
   return (
-    <group position={config.position}>
+    <group position={config.position as [number, number, number]}>
       {/* Main Node */}
       <Sphere ref={meshRef} args={[config.radius, 32, 32]}>
         <meshStandardMaterial
@@ -145,10 +162,11 @@ function NetworkNode({ config, onHover, onClick, isHovered, isActive }) {
 }
 
 // Network Connection Component
-function NetworkConnection({ from, to, type }) {
-  const lineRef = useRef();
-  const pulseRef = useRef();
+function NetworkConnection({ from, to, type }: { from: string, to: string, type: string }) {
+  const lineRef = useRef<THREE.Line>(null);
+  const pulseRef = useRef<THREE.Line>(null);
   const config = CONNECTION_TYPES[type];
+
 
   const points = useMemo(() => {
     const start = new THREE.Vector3(...NODES_CONFIG[from].position);
@@ -164,7 +182,7 @@ function NetworkConnection({ from, to, type }) {
   useFrame((state) => {
     if (pulseRef.current && config.animated) {
       const pulse = Math.sin(state.clock.elapsedTime * config.pulseSpeed) * 0.5 + 0.5;
-      pulseRef.current.material.opacity = config.opacity * pulse;
+      (pulseRef.current.material as THREE.Material).opacity = config.opacity * pulse;
     }
   });
 
@@ -172,7 +190,6 @@ function NetworkConnection({ from, to, type }) {
     <group>
       {/* Main connection line */}
       <Line
-        ref={lineRef}
         points={points}
         color={config.color}
         lineWidth={config.width * 100}
@@ -183,12 +200,11 @@ function NetworkConnection({ from, to, type }) {
       {/* Animated pulse effect */}
       {config.animated && (
         <Line
-          ref={pulseRef}
           points={points}
           color={config.color}
           lineWidth={config.width * 200}
           transparent
-          opacity={0}
+          opacity={0.3}
         />
       )}
     </group>
@@ -196,8 +212,9 @@ function NetworkConnection({ from, to, type }) {
 }
 
 // Data Pulse Component
-function DataPulse({ path, speed = 2.0, color = '#3aa8ff' }) {
-  const pulseRef = useRef();
+function DataPulse({ path, speed = 2.0, color = '#3aa8ff' }: { path: number[][], speed?: number, color?: string }) {
+  const pulseRef = useRef<THREE.Mesh>(null);
+
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -211,10 +228,10 @@ function DataPulse({ path, speed = 2.0, color = '#3aa8ff' }) {
   }, [speed]);
 
   const position = useMemo(() => {
-    if (!path || path.length < 2) return [0, 0, 0];
+    if (!path || path.length < 2) return new THREE.Vector3(0, 0, 0);
 
     const curve = new THREE.CatmullRomCurve3(path.map(p => new THREE.Vector3(...p)));
-    return curve.getPointAt(progress).toArray();
+    return curve.getPointAt(progress);
   }, [path, progress]);
 
   return (
@@ -225,14 +242,14 @@ function DataPulse({ path, speed = 2.0, color = '#3aa8ff' }) {
 }
 
 // Camera Controller
-function CameraController({ targetNode, cameraState }) {
+function CameraController({ targetNode, cameraState }: { targetNode: string | null, cameraState: string }) {
   const { camera } = useThree();
-  const cameraRef = useRef();
+
 
   useEffect(() => {
     if (!targetNode) return;
 
-    const nodePos = NODES_CONFIG[targetNode].position;
+    const nodePos = NODES_CONFIG[targetNode].position as [number, number, number];
     const targetPos = new THREE.Vector3(...nodePos);
     const cameraPos = new THREE.Vector3(targetPos.x + 3, targetPos.y + 1, targetPos.z + 3);
 
@@ -273,9 +290,9 @@ function CameraController({ targetNode, cameraState }) {
 // Energy Probe Cursor
 function EnergyProbeCursor() {
   const { viewport, mouse } = useThree();
-  const cursorRef = useRef();
-  const trailRef = useRef();
-  const trail = useRef([]);
+  const cursorRef = useRef<THREE.Mesh>(null);
+  const trailRef = useRef<THREE.Line>(null);
+  const trail = useRef<number[][]>([]);
 
   useFrame((state) => {
     if (cursorRef.current) {
@@ -307,25 +324,31 @@ function EnergyProbeCursor() {
       </Sphere>
 
       {/* Trail */}
-      <line ref={trailRef}>
-        <bufferGeometry />
-        <lineBasicMaterial color="#00ff9c" transparent opacity={0.3} />
-      </line>
+      <Line 
+        points={trail.current.length > 0 ? trail.current.map(p => new THREE.Vector3(...p)) : [new THREE.Vector3(0,0,0)]}
+        color="#00ff9c"
+        lineWidth={1}
+        transparent
+        opacity={0.3}
+      />
     </group>
   );
 }
 
 // Main NeoProxy Network Component
 export default function NeoProxyNetwork() {
-  const [hoveredNode, setHoveredNode] = useState(null);
-  const [activeNode, setActiveNode] = useState(null);
-  const [cameraState, setCameraState] = useState('KERNEL_ORBIT');
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [activeNode, setActiveNode] = useState<string | null>(null);
+  const [cameraState, setCameraState] = useState<string>('KERNEL_ORBIT');
 
-  const handleNodeHover = (nodeId, isHovered) => {
+
+  const handleNodeHover = (nodeId: string, isHovered: boolean) => {
+
     setHoveredNode(isHovered ? nodeId : null);
   };
 
-  const handleNodeClick = (nodeId) => {
+  const handleNodeClick = (nodeId: string) => {
+
     setActiveNode(nodeId);
     setCameraState('NODE_FOCUS');
 
@@ -366,7 +389,7 @@ export default function NeoProxyNetwork() {
       {Object.entries(NODES_CONFIG).map(([key, config]) => (
         <NetworkNode
           key={key}
-          config={config}
+          config={config as NodeConfig}
           onHover={handleNodeHover}
           onClick={handleNodeClick}
           isHovered={hoveredNode === key}
@@ -411,3 +434,4 @@ export default function HomePage() {
     </div>
   );
 }
+*/

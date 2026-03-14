@@ -165,17 +165,17 @@ export default function GenerativeLab() {
 
   // Handle window resize safely
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsClient(true)
+    if (typeof window === 'undefined') return
+    
+    setIsClient(true)
+    setWindowWidth(window.innerWidth)
+    
+    const handleResize = () => {
       setWindowWidth(window.innerWidth)
-      
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth)
-      }
-      
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
     }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const isMobile = windowWidth <= 768
@@ -207,7 +207,10 @@ export default function GenerativeLab() {
     const resize = () => engine.resize()
     window.addEventListener('resize', resize)
 
-    return () => { engine.dispose(); window.removeEventListener('resize', resize) }
+    return () => { 
+      engine.dispose()
+      window.removeEventListener('resize', resize) 
+    }
   }, [isClient])
 
   // Reaction to aesthetic changes

@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera, Line } from '@react-three/drei'
 import { gsap } from 'gsap'
 import styles from './ConstellationNavigation.module.css'
 
@@ -37,9 +37,9 @@ function NetworkNode({ name, position, onClick, isHovered, onHover }: NetworkNod
     meshRef.current.scale.setScalar(pulseScale)
 
     // Magnetic repulsion from mouse
-    if (isHovered) {
+    if (isHovered && meshRef.current.material instanceof THREE.MeshStandardMaterial) {
       meshRef.current.material.emissiveIntensity = 0.8
-    } else {
+    } else if (meshRef.current.material instanceof THREE.MeshStandardMaterial) {
       meshRef.current.material.emissiveIntensity = 0.3
     }
 
@@ -81,40 +81,19 @@ function NetworkNode({ name, position, onClick, isHovered, onHover }: NetworkNod
 }
 
 function ConnectionLine({ from, to }: { from: typeof NODE_POSITIONS[keyof typeof NODE_POSITIONS], to: typeof NODE_POSITIONS[keyof typeof NODE_POSITIONS] }) {
-  const lineRef = useRef<THREE.Line>(null)
-  const [pulsePosition, setPulsePosition] = useState(0)
-
-  useFrame(() => {
-    setPulsePosition(prev => (prev + 0.01) % 1)
-    
-    if (lineRef.current) {
-      // Animate pulse along the line
-      const material = lineRef.current.material as THREE.LineBasicMaterial
-      material.opacity = 0.3 + Math.sin(pulsePosition * Math.PI) * 0.2
-    }
-  })
-
   const points = [
     new THREE.Vector3(from.x, from.y, from.z),
     new THREE.Vector3(to.x, to.y, to.z)
   ]
 
   return (
-    <line ref={lineRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={points.length}
-          array={new Float32Array(points.flatMap(p => [p.x, p.y, p.z]))}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <lineBasicMaterial
-        color="#00ff9c"
-        transparent
-        opacity={0.3}
-      />
-    </line>
+    <Line
+      points={points}
+      color="#00ff9c"
+      lineWidth={1}
+      transparent
+      opacity={0.3}
+    />
   )
 }
 
@@ -160,7 +139,7 @@ function SerpentNetwork() {
     setIsTransforming(true)
 
     // Animate nodes into serpent formation
-    const serpentPath = []
+    const serpentPath: {x: number, y: number, z: number}[] = []
     for (let i = 0; i < 5; i++) {
       serpentPath.push({
         x: Math.sin(i * 0.5) * 3,
@@ -232,7 +211,7 @@ function Scene({ onNodeClick, hoveredNode, onHover }: {
       <ambientLight intensity={0.3} />
       <pointLight position={[10, 10, 10]} intensity={0.5} />
       
-      <group ref={useRef<THREE.Group>()}>
+      <group ref={useRef<THREE.Group>(null)}>
         {Object.entries(NODE_POSITIONS).map(([name, position]) => (
           <NetworkNode
             key={name}
