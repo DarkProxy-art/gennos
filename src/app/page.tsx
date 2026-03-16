@@ -1,63 +1,85 @@
 'use client'
 
-import { useEffect } from 'react'
+import Link from 'next/link'
+import styles from './page.module.css'
 
 export default function Page() {
-  useEffect(() => {
-    // Redirect to the cinematic intro experience
-    if (typeof window !== 'undefined') {
-      window.location.href = '/intro'
-    }
-  }, [])
-
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      background: 'linear-gradient(135deg, #000000 0%, #1a0a1a 50%, #0a0a1a 100%)',
-      color: '#00ff9c',
-      fontFamily: 'Space Grotesk, sans-serif'
-    }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{
-          fontSize: '3rem',
-          fontWeight: '700',
-          color: '#ff0000',
-          marginBottom: '1rem'
-        }}>
-          NEO PROXY
+    <div className={styles.container}>
+      {/* Header */}
+      <header className={styles.header}>
+        <h1 className={styles.title}>
+          <span className={styles.neo}>NEO</span>
+          <span className={styles.proxy}>PROXY</span>
+        </h1>
+        <p className={styles.subtitle}>
+          Interface Neural Cuántica • Red Descentralizada
+        </p>
+      </header>
+
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <h2 className={styles.heroTitle}>
+            Conectando Conciencia con Realidad
+          </h2>
+          <p className={styles.heroDesc}>
+            Accede a la red NeoProxy a través de interfaces físicas y digitales
+          </p>
         </div>
-        <div style={{
-          fontSize: '1.5rem',
-          color: '#00ff9c',
-          marginBottom: '2rem'
-        }}>
-          INITIALIZING SYNAPSE FLIGHT...
+      </section>
+
+      {/* Projects Grid */}
+      <section className={styles.projects}>
+        <h2 className={styles.sectionTitle}>Proyectos Activos</h2>
+        
+        <div className={styles.grid}>
+          {/* Espada Proxy */}
+          <Link href="/espada" className={styles.projectCard}>
+            <div className={styles.projectIcon}>🗡️</div>
+            <h3 className={styles.projectTitle}>Espada Proxy</h3>
+            <p className={styles.projectDesc}>
+              Interface física para acceso a la red NeoProxy
+            </p>
+            <div className={styles.projectStatus}>Activo</div>
+          </Link>
+
+          {/* Tienda */}
+          <Link href="/shop" className={styles.projectCard}>
+            <div className={styles.projectIcon}>🛒</div>
+            <h3 className={styles.projectTitle}>NeoProxy Shop</h3>
+            <p className={styles.projectDesc}>
+              STL Premium y productos físicos
+            </p>
+            <div className={styles.projectStatus}>Próximamente</div>
+          </Link>
+
+          {/* Sinspissss */}
+          <div className={styles.projectCard}>
+            <div className={styles.projectIcon}>🧠</div>
+            <h3 className={styles.projectTitle}>Sinspissss</h3>
+            <p className={styles.projectDesc}>
+              Protocolo neural cuántico
+            </p>
+            <div className={styles.projectStatus}>Beta</div>
+          </div>
+
+          {/* Lab */}
+          <div className={styles.projectCard}>
+            <div className={styles.projectIcon}>🔬</div>
+            <h3 className={styles.projectTitle}>NeoProxy Lab</h3>
+            <p className={styles.projectDesc}>
+              Investigación y desarrollo
+            </p>
+            <div className={styles.projectStatus}>Activo</div>
+          </div>
         </div>
-        <div style={{
-          width: '200px',
-          height: '2px',
-          background: 'rgba(0, 255, 156, 0.3)',
-          margin: '0 auto',
-          borderRadius: '1px',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            height: '100%',
-            background: 'linear-gradient(90deg, #00ff9c, #3aa8ff)',
-            width: '100%',
-            animation: 'loading 2s ease-in-out infinite'
-          }} />
-        </div>
-      </div>
-      <style jsx>{`
-        @keyframes loading {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
+      </section>
+
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <p>© 2026 NeoProxy • Conectando Futuros</p>
+      </footer>
     </div>
   )
 }
