@@ -66,9 +66,10 @@ Thumbs.db
 # typescript
 *.tsbuildinfo
 
-# assets (commented to allow essential models)
-# /public/models/
-# /public/stls/
+# assets (ignored to prevent repo bloating)
+/public/models/
+/public/stls/
+/artifacts/
 
 # Replit
 .cache/
