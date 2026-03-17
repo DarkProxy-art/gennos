@@ -1,0 +1,15 @@
+{
+  "id": "crystal-espada-cristal-1773643627899-1773643627909",
+  "dna": {
+    "seed": "espada-cristal-1773643627899",
+    "algorithm": "crystal",
+    "params": {
+      "complexity": 0.8871009114401184,
+      "scale": 1.0236388995832855,
+      "detail": 0.5387603220387269
+    },
+    "timestamp": 1773643627909
+  },
+  "stlPath": "/home/darkproxy/neoproxy-repo/memory/stl/crystal-espada-cristal-1773643627899-1773643627909.stl",
+  "createdAt": "2026-03-16T06:47:07.910Z"
+}
