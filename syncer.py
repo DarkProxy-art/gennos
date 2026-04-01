@@ -14,6 +14,11 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Optional
 import argparse
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from kernel.memory import memory_db
 
 # Configure logging
 logging.basicConfig(
@@ -121,6 +126,7 @@ class NeoProxySyncer:
         try:
             shutil.copy2(source_path, dest_path)
             logger.info(f"Synced {source_path.name} to {endpoint_name}")
+            memory_db.log("syncer", "sync_file", {"file": source_path.name, "endpoint": endpoint_name})
             return True
         except Exception as e:
             logger.error(f"Failed to sync {source_path.name} to {endpoint_name}: {e}")

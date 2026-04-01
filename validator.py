@@ -14,6 +14,11 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import argparse
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from kernel.memory import memory_db
 
 # Configure logging
 logging.basicConfig(
@@ -141,6 +146,7 @@ class NeoProxyValidator:
                 json.dump(metadata, f, indent=2)
 
             logger.warning(f"File quarantined: {file_path} -> {quarantine_file}")
+            memory_db.log("validator", "quarantine_file", {"original": str(file_path), "quarantine": str(quarantine_file)})
             return True
 
         except Exception as e:

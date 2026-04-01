@@ -14,6 +14,11 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import argparse
 import shutil
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from kernel.memory import memory_db
 
 # Configure logging
 logging.basicConfig(
@@ -214,6 +219,7 @@ class NeoProxyCleaner:
             try:
                 file_path.unlink()
                 logger.info(f"Removed replica: {file_path}")
+                memory_db.log("cleaner", "remove_replica", {"file_path": str(file_path)})
                 return True
             except Exception as e:
                 logger.error(f"Failed to remove replica {file_path}: {e}")
