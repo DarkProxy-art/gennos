@@ -7,6 +7,7 @@ import styles from './network.module.css';
 
 // Dynamic import to avoid SSR issues with Three.js
 const NeoProxyNetwork = dynamic(() => import('../../components/ConstellationNavigation'), {
+  ssr: false,
   loading: () => (
     <div className={styles.loading}>
       <div className={styles.loadingSpinner}></div>
@@ -43,7 +44,6 @@ export default function NetworkPage() {
       <Head>
         <title>NeoProxy Network - The Living Network</title>
         <meta name="description" content="Explore the NeoProxy living network - a 3D constellation of digital consciousness" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       {/* HUD Overlay */}

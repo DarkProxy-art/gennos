@@ -19,10 +19,13 @@ export default function EspadaProxy({
   const meshRef = useRef<THREE.Mesh>(null);
   const [bladeGlow, setBladeGlow] = useState(0);
   const [energyFlow, setEnergyFlow] = useState(0);
+  const [time, setTime] = useState(0);
 
   // Animación de energía
   useFrame((state) => {
     if (meshRef.current) {
+      const t = state.clock.getElapsedTime();
+      setTime(t);
       // Flujo de energía a lo largo de la hoja
       setEnergyFlow((prev) => (prev + 0.02) % 1);
       
@@ -61,7 +64,7 @@ export default function EspadaProxy({
             ]}
           >
             <sphereGeometry args={[0.02, 8, 8]} />
-            <meshBasicMaterial
+            <meshStandardMaterial
               color="#00ffff"
               emissive="#00ffff"
               emissiveIntensity={active ? 2 : 0.5}
@@ -99,7 +102,7 @@ export default function EspadaProxy({
         {/* Display OLED */}
         <mesh position={[0.1, 0.2, 0]}>
           <boxGeometry args={[0.15, 0.08, 0.02]} />
-          <meshBasicMaterial
+          <meshStandardMaterial
             color="#001100"
             emissive="#00ff00"
             emissiveIntensity={0.5}
@@ -136,9 +139,9 @@ export default function EspadaProxy({
           <mesh
             key={i}
             position={[
-              Math.sin(i * 0.5 + state.clock.elapsedTime) * 0.5,
-              Math.cos(i * 0.3 + state.clock.elapsedTime) * 0.5,
-              Math.sin(i * 0.7 + state.clock.elapsedTime) * 0.5
+              Math.sin(i * 0.5 + time) * 0.5,
+              Math.cos(i * 0.3 + time) * 0.5,
+              Math.sin(i * 0.7 + time) * 0.5
             ]}
           >
             <sphereGeometry args={[0.005, 4, 4]} />

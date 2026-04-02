@@ -9,7 +9,7 @@ import { gsap } from 'gsap';
 // =========================================
 
 // Node Configuration - UNIFIED SPATIAL MAP
-const NODES_CONFIG = {
+const NODES_CONFIG: Record<string, any> = {
   KERNEL: {
     position: [0, 0, 0],
     radius: 2.0,
@@ -63,7 +63,7 @@ const CONNECTIONS_CONFIG = [
   { from: 'LAB', to: 'PORTAL', type: 'output_flow' }
 ];
 
-const CONNECTION_TYPES = {
+const CONNECTION_TYPES: Record<string, any> = {
   primary: { width: 0.05, color: '#00ff9c', pulseSpeed: 2.0, opacity: 0.8 },
   secondary: { width: 0.03, color: '#3aa8ff', pulseSpeed: 1.5, opacity: 0.6 },
   tertiary: { width: 0.02, color: '#666666', pulseSpeed: 1.0, opacity: 0.4 },
@@ -77,14 +77,14 @@ const CONNECTION_TYPES = {
 // =========================================
 
 class SerpentTransformation {
-  nodes: any[]
+  nodes: { [key: string]: any }
   onComplete: () => void
   phases: string[]
   duration: number
   currentPhase: number
   isActive: boolean
 
-  constructor(nodes: any[], onComplete: () => void) {
+  constructor(nodes: { [key: string]: any }, onComplete: () => void) {
     this.nodes = nodes;
     this.onComplete = onComplete;
     this.phases = ['dissolve', 'reform', 'epic_moment', 'dissolve_to_nodes'];
@@ -116,7 +116,7 @@ class SerpentTransformation {
   dissolveNodes(duration: number) {
     const serpentPath = this.generateSerpentPath();
     Object.keys(this.nodes).forEach((nodeKey, i) => {
-      const node = this.nodes[nodeKey];
+      const node = (this.nodes as any)[nodeKey];
       if (node.meshRef?.current) {
         gsap.to(node.meshRef.current.position, {
           x: serpentPath[i]?.x || 0,
@@ -139,7 +139,7 @@ class SerpentTransformation {
     ];
   }
 
-  reformAsSerpent(duration) {
+  reformAsSerpent(duration: number) {
     // Crear conexión serpentina visual
     const serpentPoints = this.generateSerpentPath();
     // Aquí podríamos agregar una línea serpentina visual
@@ -171,7 +171,7 @@ class SerpentTransformation {
   dissolveToConstellation(duration) {
     // Regresar a posiciones originales
     Object.keys(this.nodes).forEach((nodeKey) => {
-      const node = this.nodes[nodeKey];
+      const node = (this.nodes as any)[nodeKey];
       const originalPos = NODES_CONFIG[nodeKey].position;
       if (node.meshRef?.current) {
         gsap.to(node.meshRef.current.position, {
@@ -196,8 +196,8 @@ class SerpentTransformation {
 
 // Network Node Component
 function NetworkNode({ config, onHover, onClick, isHovered, isActive }) {
-  const meshRef = useRef();
-  const glowRef = useRef();
+  const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
   const [scale, setScale] = useState(1.0);
   const [glowIntensity, setGlowIntensity] = useState(0.3);
 
@@ -304,8 +304,8 @@ function NetworkNode({ config, onHover, onClick, isHovered, isActive }) {
 
 // Network Connection Component
 function NetworkConnection({ from, to, type }) {
-  const lineRef = useRef();
-  const pulseRef = useRef();
+  const lineRef = useRef<any>(null);
+  const pulseRef = useRef<any>(null);
   const config = CONNECTION_TYPES[type];
 
   const points = useMemo(() => {
@@ -517,8 +517,8 @@ export default function NeoProxyNetwork() {
   const [activeNode, setActiveNode] = useState(null);
   const [cameraState, setCameraState] = useState('KERNEL_ORBIT');
   const [serpentMode, setSerpentMode] = useState(false);
-  const nodeRefs = useRef({});
-  const serpentRef = useRef(null);
+  const nodeRefs = useRef<Record<string, any>>({});
+  const serpentRef = useRef<SerpentTransformation | null>(null);
 
   // Inicializar transformación de serpiente
   useEffect(() => {

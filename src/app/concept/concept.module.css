@@ -2,7 +2,7 @@
    NEOPROXY OS - CONCEPT PAGE
    =================================== */
 
-:global(:root) {
+.conceptRoot {
   --bg-primary: #000000;
   --bg-surface: #0a0a0a;
   --accent-primary: #00ff9d;
@@ -1532,19 +1532,19 @@
    SCROLLBAR
    =================================== */
 
-::-webkit-scrollbar {
+.conceptRoot::-webkit-scrollbar {
   width: 4px;
 }
 
-::-webkit-scrollbar-track {
+.conceptRoot::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 
-::-webkit-scrollbar-thumb {
+.conceptRoot::-webkit-scrollbar-thumb {
   background: var(--accent-primary);
   opacity: 0.5;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.conceptRoot::-webkit-scrollbar-thumb:hover {
   background: var(--accent-secondary);
 }
